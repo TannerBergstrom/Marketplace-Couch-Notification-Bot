@@ -123,9 +123,14 @@ def main():
 
         linksToSend = link_inserter(links)
 
+        #email(linksToSend)
+
         email(linksToSend)
 
-        time.sleep(300)
+        return len(linksToSend)
+
+
+        #time.sleep(300)
 
 if __name__ == "__main__":
     main()
