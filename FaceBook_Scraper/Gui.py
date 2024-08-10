@@ -9,12 +9,17 @@ interval_seconds = 300  # Default interval set to 5 minutes (300 seconds)
 total_links_sent = 0  # Counter for total links sent
 
 def start_scraper():
-    global running, interval_seconds, total_links_sent
+    global running, interval_seconds, total_links_sent, email
     if not running:
         try:
             interval_minutes = int(interval_entry.get())
         except ValueError:
             interval_minutes = 5  # Default to 5 minutes if invalid input
+        try:
+            email = email_entry.get()
+        except ValueError:
+            email = 'tcbaby04@gmail.com'
+
         interval_seconds = interval_minutes * 60  # Convert minutes to seconds
         running = True
         stop_button.config(state="normal")  # Enable the Stop button
@@ -27,7 +32,7 @@ def run_scraper_loop():
     global running, interval_seconds, total_links_sent
     while running:
         start_time = time.time()  # Record the start time
-        sent_count = scraper_main()  # Call the main function and get the count of links sent
+        sent_count = scraper_main(email)  # Call the main function and get the count of links sent
         if sent_count is None:
             sent_count = 0  # Ensure that we handle NoneType safely
         total_links_sent += sent_count  # Update the counter
@@ -78,7 +83,7 @@ root = tk.Tk()
 root.title("Facebook Couch Web Scraper Control")
 
 # Increase the window size
-root.geometry("400x400")
+root.geometry("400x500")
 
 # Interval input label and entry
 interval_label = tk.Label(root, text="Interval (minutes):", font=('Helvetica', 12))
@@ -87,6 +92,13 @@ interval_label.pack(pady=5)
 interval_entry = tk.Entry(root, width=10, font=('Helvetica', 12))
 interval_entry.pack(pady=5)
 interval_entry.insert(0, "5")  # Default value
+
+email_label = tk.Label(root, text="Email:", font=('Helvetica', 12))
+email_label.pack(pady=5)
+
+email_entry = tk.Entry(root, width=10, font=('Helvetica', 12))
+email_entry.pack(pady=5)
+email_entry.insert(0, "tcbaby04@gmail.com")  # Default value
 
 # Countdown label to display the time until the next run
 countdown_label = tk.Label(root, text="Next run in: 00:00", font=('Helvetica', 12))
