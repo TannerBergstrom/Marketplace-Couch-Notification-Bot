@@ -118,15 +118,21 @@ email_label.pack(pady=5)
 
 email_entry = tk.Entry(root, width=30, font=('Helvetica', 12))
 email_entry.pack(pady=5)
-email_entry.insert(0, "tcbaby04@gmail.com")  # Default value
+email_entry.insert(0, "")  # Default value
+
+username_label = tk.Label(root, text="Facebook Username:", font=('Helvetica', 12))
+username_label.pack(pady=5)
 
 username_entry = tk.Entry(root, width=30, font=('Helvetica', 12))
 username_entry.pack(pady=5)
-username_entry.insert(0, "Kyleaburtt@gmail.com")  # Default value
+username_entry.insert(0, "")  # Default value
+
+password_label = tk.Label(root, text="Facebook Password:", font=('Helvetica', 12))
+password_label.pack(pady=5)
 
 password_entry = tk.Entry(root, width=30, font=('Helvetica', 12))
 password_entry.pack(pady=5)
-password_entry.insert(0, "KyleTanner2024ChatBot")  # Default value
+password_entry.insert(0, "")  # Default value
 
 # Countdown label to display the time until the next run
 countdown_label = tk.Label(root, text="Next run in: 00:00", font=('Helvetica', 12))
