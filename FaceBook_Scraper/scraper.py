@@ -18,16 +18,15 @@ from playwright.sync_api import sync_playwright
 # It will then give us the first 25 links in the specified facebook marketplace
 #
 
-def search():
+def search(username, password):
     with sync_playwright() as p:
-        email = "Kyleaburtt@gmail.com"
-        password = "KyleTanner2024ChatBot"
+
 
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto(
-            "https://www.facebook.com/marketplace/105496622817769/search?maxPrice=300&daysSinceListed=1&query=couch&exact=false")
-        page.fill('input[name="email"]', email)
+            "https://www.facebook.com/marketplace/lehi/search/?query={couch}&maxPrice={500}")
+        page.fill('input[name="email"]', username)
         page.fill('input[name="pass"]', password)
 
         # Click the login button
@@ -35,7 +34,6 @@ def search():
 
         # Wait for the navigation to complete after logging in
         page.wait_for_load_state('networkidle')
-
         page.wait_for_timeout(10000)
 
         # Downloads the HTML of the page
@@ -127,9 +125,9 @@ def email(linksToSend, email):
         conn.quit()
 
 
-def main(userEmail):
+def main(userEmail, username, password):
     while (True):
-        links = search()
+        links = search(username, password)
 
         linksToSend = link_inserter(links)
 

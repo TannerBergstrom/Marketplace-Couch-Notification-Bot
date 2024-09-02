@@ -9,7 +9,7 @@ interval_seconds = 300  # Default interval set to 5 minutes (300 seconds)
 total_links_sent = 0  # Counter for total links sent
 
 def start_scraper():
-    global running, interval_seconds, total_links_sent, email
+    global running, interval_seconds, total_links_sent, email, username, password
     if not running:
         try:
             interval_minutes = int(interval_entry.get())
@@ -18,7 +18,15 @@ def start_scraper():
         try:
             email = email_entry.get()
         except ValueError:
-            email = 'tcbaby04@gmail.com'
+            email = ''
+        try:
+            username = username_entry.get()
+        except ValueError:
+            username = ''
+        try:
+            password = password_entry.get()
+        except ValueError:
+            password = ''
 
         interval_seconds = interval_minutes * 60  # Convert minutes to seconds
         running = True
@@ -32,7 +40,7 @@ def run_scraper_loop():
     global running, interval_seconds, total_links_sent
     while running:
         start_time = time.time()  # Record the start time
-        sent_count = scraper_main(email)  # Call the main function and get the count of links sent
+        sent_count = scraper_main(email, username, password)  # Call the main function and get the count of links sent
         if sent_count is None:
             sent_count = 0  # Ensure that we handle NoneType safely
         total_links_sent += sent_count  # Update the counter
@@ -96,9 +104,17 @@ interval_entry.insert(0, "5")  # Default value
 email_label = tk.Label(root, text="Email:", font=('Helvetica', 12))
 email_label.pack(pady=5)
 
-email_entry = tk.Entry(root, width=10, font=('Helvetica', 12))
+email_entry = tk.Entry(root, width=30, font=('Helvetica', 12))
 email_entry.pack(pady=5)
 email_entry.insert(0, "tcbaby04@gmail.com")  # Default value
+
+username_entry = tk.Entry(root, width=30, font=('Helvetica', 12))
+username_entry.pack(pady=5)
+username_entry.insert(0, "Kyleaburtt@gmail.com")  # Default value
+
+password_entry = tk.Entry(root, width=30, font=('Helvetica', 12))
+password_entry.pack(pady=5)
+password_entry.insert(0, "KyleTanner2024ChatBot")  # Default value
 
 # Countdown label to display the time until the next run
 countdown_label = tk.Label(root, text="Next run in: 00:00", font=('Helvetica', 12))
