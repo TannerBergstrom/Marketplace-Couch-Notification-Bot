@@ -60,6 +60,7 @@ def search(username, password):
 # to make sure there are no duplicates
 #
 def link_inserter(links):
+    # This file stores links, if a link has already been stored, it will not be sent in the notification
     text_file = open("couches.txt", "r")
     oldLinks = text_file.read()
 

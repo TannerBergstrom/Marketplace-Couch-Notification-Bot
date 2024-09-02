@@ -3,6 +3,17 @@ import threading
 import time
 from scraper import main as scraper_main  # Import the main function from scraper.py
 
+#
+# Authors: Kyle Burtt, Tanner Bergstrom
+# Date made: 8/7/2024
+#
+
+#
+# This search method is used to open up chrome and log you into facebook,
+# It will then download the contents of the page using beatiful soup and then we search
+# It will then give us the first 25 links in the specified facebook marketplace
+#
+
 # Global variables
 running = False
 interval_seconds = 300  # Default interval set to 5 minutes (300 seconds)
@@ -10,6 +21,7 @@ total_links_sent = 0  # Counter for total links sent
 
 def start_scraper():
     global running, interval_seconds, total_links_sent, email, username, password
+    # sets user inputs to the values in the entries
     if not running:
         try:
             interval_minutes = int(interval_entry.get())
